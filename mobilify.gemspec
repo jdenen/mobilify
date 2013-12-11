@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Mobilify::VERSION
   spec.authors       = ["Johnson Denen"]
   spec.email         = ["jdenen@manta.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{Make your mobile testing easier with mobilified page objects}
+  spec.summary       = %q{Make your mobile testing easier with mobilified page objects}
+  spec.homepage      = "http://github.com/jdenen/mobilify"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -18,6 +18,12 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "page-object"
+
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "watir-webdriver"
+  spec.add_development_dependency "webdriver-user-agent"
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "rspec-given"
 end
