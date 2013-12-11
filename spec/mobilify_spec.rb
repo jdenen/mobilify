@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'support/manta_page'
+require 'pages/manta_page'
 
 shared_examples "the map link" do
   Given { page_object.goto }
