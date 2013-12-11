@@ -13,3 +13,10 @@ RSpec.configure do |config|
   config.color_enabled = true
 
 end
+
+def mock_browser
+  browser = double('watir')
+  browser.stub(:is_a?).with(anything()).and_return(false)
+  browser.stub(:is_a?).with(Watir::Browser).and_return(true)
+  browser
+end
