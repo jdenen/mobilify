@@ -113,4 +113,4 @@ Or install it yourself as:
 5. Create new Pull Request
 
 ## Questions, Comments, Concerns
-Easiest place to reach me is Twitter, [@jpdenen](http://twitter.com/jpdenen).
+Easiest place to reach me is Twitter, [@jpdenen](http://twitter.com/jpdenen)
