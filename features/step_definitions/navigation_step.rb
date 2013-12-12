@@ -10,5 +10,5 @@ Given /^I am using a mobile device$/ do
 end
 
 Given /^I navigate to a Manta profile$/ do
-  @page = Manta.new(@browser, :agent => @agent, :visit => true)
+  @page = MantaPage.new(@browser, :agent => @agent, :visit => true)
 end
