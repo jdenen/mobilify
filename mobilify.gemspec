@@ -24,6 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "watir-webdriver"
   spec.add_development_dependency "webdriver-user-agent"
-  spec.add_development_dependency "rspec"
-  spec.add_development_dependency "rspec-given"
+  spec.add_development_dependency "cucumber"
 end
