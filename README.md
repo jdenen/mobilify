@@ -1,4 +1,5 @@
 # Mobilify
+[![Gem Version](https://badge.fury.io/rb/mobilify.png)](http://badge.fury.io/rb/mobilify)
 
 We don't like to maintain a lot of test code. Which means, we don't want to rewrite the same tests for the same web application on different platforms. It's easy when those different platforms are browsers, because the site doesn't change much (at all?). 
 
