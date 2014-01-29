@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Mobilify::VERSION
   spec.authors       = ["Johnson Denen"]
   spec.email         = ["jdenen@manta.com"]
-  spec.description   = %q{Make your mobile testing easier with mobilified page objects}
-  spec.summary       = %q{Make your mobile testing easier with mobilified page objects}
+  spec.description   = %q{switch seamlessly between page-object methods when testing your web app at different sizes}
+  spec.summary       = %q{switch seamlessly between page-object methods when testing your web app at different sizes}
   spec.homepage      = "http://github.com/jdenen/mobilify"
   spec.license       = "MIT"
 
