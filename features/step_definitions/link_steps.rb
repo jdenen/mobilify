@@ -15,11 +15,11 @@ Then /^I should receive true$/ do
 end
 
 Then /^I should receive the desktop link element$/ do
-  @element.inspect.should include(':id=>"map-tab-link"')
+  @element.inspect.should include(':xpath=>"//div[@class=\'panel-body\']//a[contains(@href, \'/cmap/\')]"')
 end
 
 Then /^I should receive the mobile link element$/ do
-  @element.inspect.should include(':class=>"pvm prm"')
+  @element.inspect.should include(':xpath=>"//div[@class=\'col-xs-6\']/a[contains(@href, \'/cmap/\')]"')
 end
 
 Then /^I should land on the map page$/ do
