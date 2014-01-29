@@ -1,13 +1,9 @@
 # Mobilify
 [![Gem Version](https://badge.fury.io/rb/mobilify.png)](http://badge.fury.io/rb/mobilify)
 
-We don't like to maintain a lot of test code. Which means, we don't want to rewrite the same tests for the same web application on different platforms. It's easy when those different platforms are browsers, because the site doesn't change much (at all?). 
+Mobilify allows you to create one page object and write one test for your web application at different sizes. Just change context when initializing your object.
 
-But, it's a challenge to reuse code when the different platforms are desktop and mobile browsers. The elements move, and their identifiers change. We could create separate page objects for desktop and mobile, with a mixin object for the shared stuff. Or we could create one page object with all the elements, and write two different tests. Seems like a waste both ways.
-
-Mobilify allows you to create one page object and write one test. You write tests for the desktop, and it will grab mobile elements when necessary. Just define the context during page initialization.
-
-#### Usage
+## Usage
 To Mobilify your page objects, ```include Mobilify``` in the page class. For each method requiring a mobile replacement, create an element definition with ```mobile_``` prepended to the original's name.
 
 ```ruby
@@ -33,11 +29,7 @@ my_page = Page.new(@browser, :visit => true, :agent => :mobile)
 
 #### Example
 
-You're testing a responsive page with a link to your registration form. But you can only identify the link with XPath, and the XPath changes between your desktop-sized application and your mobile-sized application. You could: 
-
-* Call two different methods in two different specs, each pointing to its own XPath 
-* Call two different methods in one spec, using logic to determine the call correctly
-* Call the same method in one spec and Mobilify the page object for mobile testing
+You're testing a responsive page with a link to your registration form. But you can only identify the link with XPath, and the XPath changes between your desktop-sized application and your mobile-sized application.
 
 ```ruby
 # spec/page.rb
