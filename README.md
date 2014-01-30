@@ -1,10 +1,10 @@
 # Mobilify
 [![Gem Version](https://badge.fury.io/rb/mobilify.png)](http://badge.fury.io/rb/mobilify)
 
-Mobilify allows you to create one page object and write one test for your web application at different sizes. Just change context when initializing your object.
+Mobilify allows you to create one page object and write one test for your web application, but execute different methods as part of that test given the context. Just change context when initializing your object.
 
 ## Usage
-To Mobilify your page objects, ```include Mobilify``` in the page class. For each method requiring a mobile replacement, create an element definition with ```mobile_``` prepended to the original's name.
+To Mobilify your page objects, ```include Mobilify``` in the page class. For each method requiring a mobile replacement, create an element (or method) definition with your context prepended to the original's name (like `mobile_`).
 
 ```ruby
 # method
@@ -13,18 +13,18 @@ text_field(:password, :id => "user-pw")
 text_field(:mobile_password, :id => "mobile-pw")
 ```
 
-Mobilify will replace called methods with their ```mobile_``` counterparts if two conditions are met. First, a hash with a key-value pair of ```:agent => :mobile``` is passed to the page object constructor. And second, the page object responds to a ```mobile_``` version of the called method.
+Mobilify will replace called methods with their contextual counterparts if two conditions are met. First, a hash with a key-value pair of `:context => :{your_context}` is passed to the page object constructor. And second, the page object responds to `{your_context}_method`.
 
 ```ruby
 # constructor
-my_page = Page.new(@browser, :agent => :mobile)
+my_page = Page.new(@browser, :context => :mobile)
 ```
 
 To navigate to your page object during initialization, pass the key-value pair ```:visit => true``` to the constructor.
 ```ruby
 # visiting
 my_page = Page.new(@browser, :visit => true)
-my_page = Page.new(@browser, :visit => true, :agent => :mobile)
+my_page = Page.new(@browser, :visit => true, :context => :mobile)
 ```
 
 #### Example
@@ -56,11 +56,11 @@ RSpec.configure do |config|
     case ENV['BROWSER']
     when 'desktop'
       @browser = Watir::Browser.new :firefox
-      @agent = :desktop
+      @my_context = :desktop
     when 'mobile'
       driver = Webdriver::UserAgent.driver(:browser => :firefox, :agent => :iphone)
       @browser = Watir::Browser.new driver
-      @agent = :mobile
+      @my_context = :mobile
     end
   end
 end
@@ -72,7 +72,7 @@ require 'spec_helper'
 require 'page'
 
 describe Page do
-  let(:page) { Page.new(@browser, :agent => @agent, :visit => true) }
+  let(:page) { Page.new(@browser, :context => @my_context, :visit => true) }
   
   describe "#to_registration" do
     it "takes me to the registration form" do
