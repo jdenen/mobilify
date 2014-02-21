@@ -1,10 +1,12 @@
 # Mobilify
 [![Gem Version](https://badge.fury.io/rb/mobilify.png)](http://badge.fury.io/rb/mobilify)
 
-Mobilify allows you to create one page object and write one test for your web application, but execute different methods as part of that test given the context. Just change context when initializing your object.
+Invoke one page-object method name but execute different definitions of that method based on the page-object's context. 
+
+We use it at [Manta](www.manta.com) to keep the number of test scripts low while testing against multiple versions of the same feature (legacy version, new desktop version, new mobile version, etc).
 
 ## Usage
-To Mobilify your page objects, ```include Mobilify``` in the page class. For each method requiring a mobile replacement, create an element (or method) definition with your context prepended to the original's name (like `mobile_`).
+To contextualize your page objects, ```include Mobilify``` in the page class. For each method requiring a contextual replacement, create an element (or method) definition with your context prepended to the original's name (like `mobile_` or `legacy_`).
 
 ```ruby
 # method
@@ -20,66 +22,50 @@ Mobilify will replace called methods with their contextual counterparts if two c
 my_page = Page.new(@browser, :context => :mobile)
 ```
 
-To navigate to your page object during initialization, pass the key-value pair ```:visit => true``` to the constructor.
+Mobilify also supports multiple contexts per page-object instance, invoking the first applicable context it matches in a given array.
+
 ```ruby
-# visiting
-my_page = Page.new(@browser, :visit => true)
-my_page = Page.new(@browser, :visit => true, :context => :mobile)
+# multiple context constructor
+my_page = Page.new(@browser, :context => [:legacy, :mobile])
 ```
 
 #### Example
 
-You're testing a responsive page with a link to your registration form. But you can only identify the link with XPath, and the XPath changes between your desktop-sized application and your mobile-sized application.
+I want to test a login page, but my there are basically three versions of the same page in some cycle of development. There's legacy code, new responsive code at the desktop size, and new responsive code at the mobile size. All three have different identifiers for the login form.
+
+I'll use Mobilify to write one script and test all browsers and environments.
 
 ```ruby
-# spec/page.rb
-require 'mobilify'
+# login.rb
+require "mobilify"
 
-class Page
+class Login
   include Mobilify
   
-  page_url "http://my-page.com"
+  text_field(:user, :id => "email")
+  text_field(:mobile_user, :id => "xs-email")
+  text_field(:legacy_user, :id => "member-email")
   
-  link(:to_registration, :xpath => '//xpath/to/desktop/register/link')
-  link(:mobile_to_registration, :xpath => '//xpath/to/mobile/register/link')
-end
-```
-
-```ruby 
-# spec/spec_helper.rb
-require 'watir-webdriver'
-require 'webdriver-user-agent'
-
-RSpec.configure do |config|
+  text_field(:password, :id => "password")
+  text_field(:mobile_password, :id => "xs-password")
+  text_field(:legacy_password, :id => "member-password")
   
-  config.before :all do
-    case ENV['BROWSER']
-    when 'desktop'
-      @browser = Watir::Browser.new :firefox
-      @my_context = :desktop
-    when 'mobile'
-      driver = Webdriver::UserAgent.driver(:browser => :firefox, :agent => :iphone)
-      @browser = Watir::Browser.new driver
-      @my_context = :mobile
-    end
-  end
+  button(:submit, :id => "submit")
 end
 ```
 
 ```ruby
-# spec/registration_link_spec.rb
-require 'spec_helper'
-require 'page'
+# login_spec.rb
+require "rspec-given"
+require "support/login"
 
-describe Page do
-  let(:page) { Page.new(@browser, :context => @my_context, :visit => true) }
-  
-  describe "#to_registration" do
-    it "takes me to the registration form" do
-      page.to_registration
-      @browser.url.should == "http://my-page.com/registration"
-    end
-  end
+describe "logging in" do
+  Given(:login) { Login.new(@browser, :context => [:mobile, :legacy]) }
+  When { login.goto }
+  When { login.user = "member@example.com" }
+  When { login.password = "password123" }
+  When { login.submit }
+  Then { ... }
 end
 ```
 

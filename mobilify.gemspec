@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Mobilify::VERSION
   spec.authors       = ["Johnson Denen"]
   spec.email         = ["jdenen@manta.com"]
-  spec.description   = %q{switch seamlessly between page-object methods when testing your web app in different contexts}
-  spec.summary       = %q{switch seamlessly between page-object methods when testing your web app in different contexts}
+  spec.description   = %q{page-object methods invoked with one call but defined contextually}
+  spec.summary       = %q{page-object methods invoked with one call but defined contextually}
   spec.homepage      = "http://github.com/jdenen/mobilify"
   spec.license       = "MIT"
 
@@ -24,5 +24,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "watir-webdriver"
   spec.add_development_dependency "webdriver-user-agent"
-  spec.add_development_dependency "cucumber"
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "rspec-given"
 end
