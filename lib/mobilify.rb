@@ -21,6 +21,7 @@ module Mobilify
   def context
     @context
   end
+  alias :context? :context
 
   private
 

@@ -102,6 +102,11 @@ describe Mobilify do
       page = @mobilify.call ['one', 'two', 'three']
       expect(page.context).to eq [:one, :two, :three]
     end
+
+    it "can be called as #context?" do
+      page = @mobilify.call 'desktop'
+      expect(page.context?).to eq [:desktop]
+    end
   end
 
   describe "#set_context" do
