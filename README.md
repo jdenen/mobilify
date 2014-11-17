@@ -3,7 +3,7 @@
 
 Invoke one page-object method name but execute different definitions of that method based on the page-object's context. 
 
-We use it at [Manta](www.manta.com) to keep the number of test scripts low while testing against multiple versions of the same feature (legacy version, new desktop version, new mobile version, etc).
+We use it at [Manta](http://www.manta.com) to keep the number of test scripts low while testing against multiple versions of the same feature (legacy version, new desktop version, new mobile version, etc).
 
 ## Usage
 To contextualize your page objects, ```include Mobilify``` in the page class. For each method requiring a contextual replacement, create an element (or method) definition with your context prepended to the original's name (like `mobile_` or `legacy_`).
